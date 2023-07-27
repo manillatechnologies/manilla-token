@@ -1,22 +1,23 @@
 require("@nomiclabs/hardhat-ethers");
 require("@openzeppelin/hardhat-upgrades");
 require("@nomiclabs/hardhat-etherscan");
-require('dotenv').config()
+require('dotenv').config({path: "./.env"})
+console.log(process.env)
 
 module.exports = {
   solidity: "0.8.4",
   networks: {
     testnet: {
-      url: process.env.TESTNET_RPC_URL,
-      accounts: [process.env.PRIVATE_KEY]
+      url: process.env.testnet_url,
+      accounts: [process.env.privateKey]
     },
     mainnet: {
-      url: process.env.RPC_URL,
-      accounts: [process.env.PRIVATE_KEY]
+      url: process.env.mainnet_url,
+      accounts: [process.env.privateKey]
   },
   },
   etherscan: {
-    apiKey: process.env.BSCSCAN_API_KEY,
+    apiKey: process.env.apiKey,
   },
   paths: {
     sources: "./contracts",
