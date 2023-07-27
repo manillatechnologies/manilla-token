@@ -12,15 +12,6 @@ contract Manilla is IERC20, IERC20Metadata, Context, Ownable{
     string private _name;
     string private _symbol;
 
-    /**
-     * @dev Sets the values for {name} and {symbol}.
-     *   
-     * The default value of {decimals} is 18. To select a different value for
-     * {decimals} you should overload it.
-     *
-     * All two of these values are immutable: they can only be set once during
-     * construction.
-     */
     constructor(string memory name_, string memory symbol_, uint256 amount_, address adminAccount_) {
         require(adminAccount_ != address(0));
         require(amount_ == 1 * 1E9 * 1E18, "amount to be minted exceeds 1 billion");
