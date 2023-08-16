@@ -22,7 +22,6 @@
     "defender-relay-client": "^1.24.0",
     "dotenv": "^8.6.0",
     "eth-permit": "^0.2.1",
-    "ethers": "^5.4.1",
     "express": "^4.17.1",
     "express-fileupload": "^1.2.0",
     "hardhat": "^2.12.0",
@@ -39,22 +38,24 @@
     "@openzeppelin/cli": "^2.8.2",
     "@openzeppelin/contracts": "^4.6.0",
     "@openzeppelin/hardhat-upgrades": "^1.21.0",
-    "chai": "^4.2.0",
+    "chai": "^4.3.7",
     "chai-as-promised": "^7.1.1",
     "eslint": "^8.39.0",
     "eslint-config-standard": "^17.0.0",
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-n": "^15.7.0",
     "eslint-plugin-promise": "^6.1.1",
+    "ethers": "^5.4.1",
     "hardhat": "^2.11.2",
+    "mocha": "^10.2.0",
     "nodemon": "^2.0.16",
     "swagger": "^0.0.1",
     "swagger-ui-express": "^4.5.0"
   },
   "scripts": {
-    "test": "mocha",
-    "start": "node index.js",
-    "dev": "node index.js"
+    "compile:contract": "npx hardhat compile",
+    "deploy:mainnet": "npx hardhat run --network mainnet scripts/deploy.js",
+    "deploy:testnet": "npx hardhat run --network testnet scripts/deploy.js"
   },
   "repository": {
     "type": "",

@@ -1,17 +1,47 @@
 // SPDX-License-Identifier: GPL-3.0
 pragma solidity 0.8.4;
-import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol";
-import "@openzeppelin/contracts/utils/Context.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
-contract Manilla is IERC20, IERC20Metadata, Context, Ownable{
+/**
+ * @title Manilla Token Contract
+ * @dev ERC-20 token with additional features such as minting and allowances.
+ */
+
+contract Manilla is IERC20Metadata, Ownable {
+
+    /**
+     * @dev Internal balance tracking for each account.
+     */
     mapping(address => uint256) private _balances;
+
+    /**
+     * @dev Allowance tracking for token transfers between accounts.
+     */
     mapping(address => mapping(address => uint256)) private _allowances;
+
+    /**
+     * @dev Total supply of the token.
+     */
     uint256 private _totalSupply;
+
+    /**
+     * @dev Name of the token.
+     */
     string private _name;
+
+    /**
+     * @dev Symbol (ticker) of the token.
+     */
     string private _symbol;
 
+    /**
+     * @dev Contract constructor initializes the token with initial supply and assigns it to admin.
+     * @param name_ Name of the token.
+     * @param symbol_ Symbol (ticker) of the token.
+     * @param amount_ Initial amount to be minted and assigned to admin.
+     * @param adminAccount_ Address of the admin account.
+     */
     constructor(string memory name_, string memory symbol_, uint256 amount_, address adminAccount_) {
         require(adminAccount_ != address(0));
         require(amount_ == 1 * 1E9 * 1E18, "amount to be minted exceeds 1 billion");
@@ -53,27 +83,37 @@ contract Manilla is IERC20, IERC20Metadata, Context, Ownable{
     }
 
     /**
-     * @dev See {IERC20-totalSupply}.
-     */
+    * @dev Retrieves the total supply of the token.
+    *
+    * This function allows querying the total supply of tokens that have been minted.
+    *
+    * @return The total supply of the token.
+    */
     function totalSupply() public view virtual override returns (uint256) {
         return _totalSupply;
     }
 
     /**
-     * @dev See {IERC20-balanceOf}.
-     */
+    * @dev Retrieves the token balance of the specified account.
+    *
+    * This function allows querying the balance of tokens held by a specific account.
+    *
+    * @param account The address of the account for which the balance is queried.
+    * @return The balance of tokens held by the specified account.
+    */
     function balanceOf(address account) public view virtual override returns (uint256) {
         return _balances[account];
     }
-
+    
     /**
-     * @dev See {IERC20-transfer}.
-     *
-     * Requirements:
-     *
-     * - `to` cannot be the zero address.
-     * - the caller must have a balance of at least `amount`.
-     */
+    * @dev Transfers a specified amount of tokens to the given recipient address.
+    *
+    * This function allows the caller (token owner) to transfer tokens to another address (`to`).
+    *
+    * @param to The recipient address where tokens will be transferred.
+    * @param amount The amount of tokens to transfer.
+    * @return `true` if the transfer was successful, otherwise `false`.
+    */
     function transfer(address to, uint256 amount) public virtual override returns (bool) {
         address owner = _msgSender();
         _transfer(owner, to, amount);
@@ -81,8 +121,14 @@ contract Manilla is IERC20, IERC20Metadata, Context, Ownable{
     }
 
     /**
-     * @dev See {IERC20-allowance}.
-     */
+    * @dev Returns the amount of tokens that a `spender` is allowed to transfer on behalf of a `owner`.
+    *
+    * This function is used to query the allowance amount set by the `owner` for the `spender`.
+    *
+    * @param owner The address that owns the tokens.
+    * @param spender The address which will spend the tokens.
+    * @return The amount of tokens that the `spender` is allowed to transfer.
+    */
     function allowance(address owner, address spender) public view virtual override returns (uint256) {
         return _allowances[owner][spender];
     }

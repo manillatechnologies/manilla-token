@@ -2,7 +2,6 @@ require("@nomiclabs/hardhat-ethers");
 require("@openzeppelin/hardhat-upgrades");
 require("@nomiclabs/hardhat-etherscan");
 require('dotenv').config({path: "./.env"})
-console.log(process.env)
 
 module.exports = {
   solidity: "0.8.4",
